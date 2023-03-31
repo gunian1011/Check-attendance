@@ -9,6 +9,7 @@ import type { SignsState } from './modules/signs'
 import type { ChecksState } from './modules/checks'
 import type { NewsState } from './modules/news'
 import type { InjectionKey } from 'vue'
+import VuexPersistence from 'vuex-persist'
 
 export interface State {}
 
@@ -18,6 +19,11 @@ export interface StateAll extends State {
   checks: ChecksState,
   news: NewsState
 }
+
+const vuexLocal = new VuexPersistence<State> ({
+  storage:window.localStorage,
+  reducer: (state) => ({ users: { token: (state as StateAll).users.token} })
+})
 
 export const key: InjectionKey<Store<StateAll>> = Symbol()
 
@@ -39,5 +45,6 @@ export default createStore({
     signs,
     checks,
     news
-  }
+  },
+  plugins: [vuexLocal.plugin]
 })

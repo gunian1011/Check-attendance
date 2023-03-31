@@ -1,5 +1,8 @@
 import axios from 'axios'
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import store from '@/store'
+import type { StateAll } from '@/store'
+import { ElMessage } from 'element-plus'
 
 const instance = axios.create({
     baseURL: 'http://localhost:3000/',
@@ -8,6 +11,9 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
+    if(config.headers) {
+        config.headers.authorization = (store.state as StateAll).users.token;
+    }
   // 在发送请求之前做些什么
   return config;
 }, function (error) {
@@ -17,6 +23,13 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
+    if(response.data.errmsg === 'token error') {
+        ElMessage.error('token error');
+        store.commit('users/clearToken');
+        setTimeout(() => {
+            window.location.replace('/login')
+        },1000)
+    }
   // 对响应数据做点什么
   return response;
 }, function (error) {
