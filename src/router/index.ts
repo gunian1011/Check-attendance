@@ -36,7 +36,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   children: [
     {
-      path: '/sign',
+      path: 'sign',
       name: 'sign',
       component: Sign,
       meta: {
@@ -45,9 +45,24 @@ const routes: Array<RouteRecordRaw> = [
         icon: 'calendar',
         auth: true
       },
+      beforeEnter(to, from, next) {
+        const usersInfos = (store.state as StateAll).users.infos;
+        const signsInfos = (store.state as StateAll).signs.infos
+
+        if( _.isEmpty(signsInfos) ){
+          store.dispatch('signs/getTime', { userid: usersInfos._id }).then((res) => {
+            if(res.data.errcode === 0) {
+              store.commit('signs/updateInfos', res.data.infos)
+              next()
+            }
+          })
+        } else {
+          next()
+        }
+      }
      },
     {
-      path: '/exception',
+      path: 'exception',
       name: 'exception',
       component: Exception,
       meta: {
@@ -56,9 +71,25 @@ const routes: Array<RouteRecordRaw> = [
         icon: 'warning',
         auth: true
       },
+      beforeEnter(to, from, next){
+        const usersInfos = (store.state as StateAll).users.infos;
+        const signsInfos = (store.state as StateAll).signs.infos;
+
+        if( _.isEmpty(signsInfos) ){
+          store.dispatch('signs/getTime', { userid: usersInfos._id }).then((res)=>{
+            if(res.data.errcode === 0){
+              store.commit('signs/updateInfos', res.data.infos)
+              next()
+            }
+          })
+        }
+        else{
+          next()
+        }
+      }
      },
     {
-      path: 'aApply',
+      path: 'apply',
       name: 'apply',
       component: Apply,
       meta: {
@@ -69,7 +100,7 @@ const routes: Array<RouteRecordRaw> = [
       },
      },
     {
-      path: '/check',
+      path: 'check',
       name: 'check',
       component: Check,
       meta: {
