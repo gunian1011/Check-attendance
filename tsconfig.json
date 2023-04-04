@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "moment.d.ts"  ],
   "exclude": [
     "node_modules"
   ]
