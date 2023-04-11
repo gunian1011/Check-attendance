@@ -4,25 +4,12 @@
 
 # **VUE3+TS**
 
-## Project setup
-```
-yarn install
-```
+##### 使用npm i 或者 yarn 安装需要的使用包文件
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+使用 yarn run serve 运行项目
 
-### Compiles and minifies for production
-```
-yarn build
-```
+启用项目需要启动本地服务
 
-### Lints and fixes files
-```
-yarn lint
-```
+后端服务地址：https://github.com/gunian1011/node-attendance，需要下载到客户端使用node环境运行。
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+线上服务需要更改URL：http://api.h5ke.top/，直接在src>utils>http.ts基础地址
