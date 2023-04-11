@@ -10,6 +10,6 @@
 
 启用项目需要启动本地服务
 
-后端服务地址：https://github.com/gunian1011/node-attendance，需要下载到客户端使用node环境运行。
+后端服务地址：https://github.com/gunian1011/node-attendance  需要下载到客户端使用node环境运行。
 
-线上服务需要更改URL：http://api.h5ke.top/，直接在src>utils>http.ts基础地址
+线上服务需要更改URL：http://api.h5ke.top/ 直接在src>utils>http.ts基础地址
